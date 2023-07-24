@@ -14,4 +14,3 @@ class Teacher < Person
     super parent_permission: true
   end
 end
-
