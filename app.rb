@@ -15,7 +15,26 @@ class App
   end
 
   def create_a_person
-    puts 'create a person'
+    puts 'To create a Student press (1) to create a Teacher press (2) otherwise exit'
+    choice = gets.chomp.to_i
+    case choice
+    when 1
+      create_student
+    when 2
+      create_teacher
+    when 0
+      exit!
+    else
+      puts 'Try again!'
+    end
+  end
+
+  def create_student
+    puts 'student'
+  end
+
+  def create_teacher
+    puts 'teacher'
   end
 
   def create_a_book
