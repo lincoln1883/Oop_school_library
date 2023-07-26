@@ -26,7 +26,7 @@
 - [📝 License](#license)
 
 
-# 📖 My Enumerable <a name="about-project"></a>
+# 📖 OOP School Library<a name="about-project"></a>
 This project is designed to build familiarity  with the ruby programming language, with
 usage of class concepts notably, polymorphism, inheritance, encapsulation, abstraction.
 
