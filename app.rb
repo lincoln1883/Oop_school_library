@@ -6,16 +6,23 @@ require_relative 'rental'
 require_relative 'classroom'
 
 class App
+  def initialize
+    @people = []
+  end
+
   def list_all_books
     puts 'list all books'
   end
 
   def list_all_people
-    puts 'list all people'
+    puts 'There is no one on record, please add a person!' if @people.empty?
+    @people.each do |person|
+      puts "Name: #{person.name}, Age: #{person.age} "
+    end
   end
 
   def create_a_person
-    puts 'To create a Student press (1) to create a Teacher press (2) otherwise exit'
+    puts 'To create a Student press (1) to create a Teacher press (2) otherwise press (0)'
     choice = gets.chomp.to_i
     case choice
     when 1
@@ -25,12 +32,22 @@ class App
     when 0
       exit!
     else
-      puts 'Try again!'
+      puts 'Invalid entry try again!'
     end
   end
 
   def create_student
-    puts 'student'
+    puts 'Create a new student'
+    print 'Please enter a age: '
+    age = gets.chomp.to_i
+    print 'Please enter a name: '
+    name = gets.chomp
+    print 'Granted permission? [Y/N]: '
+    permission = gets.chomp.downcase
+    permission.include?('y')
+    student = Student.new(age, name, classroom: @classroom, parents_permission: permission)
+    puts 'Student successfully created!'
+    @people << student
   end
 
   def create_teacher
