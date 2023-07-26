@@ -14,7 +14,8 @@ class App
 
   def list_all_books
     puts 'The list is empty, please create a book!' if @books.empty?
-    @books.each { |ele| puts "Title: #{ele.title} Author: #{ele.author}" }
+    @books.each { |ele| puts "Title: #{ele.title}, Author: #{ele.author}" }
+    puts
   end
 
   def list_all_people
@@ -22,6 +23,7 @@ class App
     @people.each do |person|
       puts "ID: #{person.id}, Name: #{person.name}, Age: #{person.age}"
     end
+    puts
   end
 
   def create_a_person
@@ -35,7 +37,8 @@ class App
     when 0
       exit!
     else
-      puts "Invalid entry try again!' \n"
+      puts 'Invalid entry try again!'
+      puts
     end
   end
 
@@ -50,7 +53,7 @@ class App
     permission = permission_input == 'y'
     student = Student.new(age, name, permission)
     @people << student
-    puts "Student successfully created!' \n"
+    puts 'Student successfully created!'
     puts
   end
 
@@ -64,7 +67,8 @@ class App
     specialization = gets.chomp.capitalize
     teacher = Teacher.new(age, name, specialization)
     @people << teacher
-    puts "Teacher successfully created!' \n"
+    puts 'Teacher successfully created!'
+    puts
   end
 
   def create_a_book
@@ -75,7 +79,8 @@ class App
     author = gets.chomp.capitalize
     book = Book.new(title, author)
     @books << book
-    puts "Successfully created a book!' \n"
+    puts 'Successfully created a book!'
+    puts
   end
 
   def create_a_rental
@@ -89,21 +94,28 @@ class App
     end
     person_index = gets.chomp.to_i
     puts "You selected person index: #{person_index}"
+    puts 'Please enter a date: '
     print 'Date: '
     date = gets.chomp
     puts "You entered date: #{date}"
     rental = Rental.new(date, @books[book_index], @people[person_index])
     @rentals << rental
-    puts "Successfully rented a book.' \n"
+    puts 'Successfully rented a book.'
+    puts
   end
 
   def list_all_rentals
-    puts 'ID of person: '
-    gets.chomp.to_i
+    puts 'Enter the person ID: '
+    person_id = gets.chomp.to_i
     puts 'Rentals: '
-    @rentals.select do |rental|
-      rental.person.id
-      puts "Date: #{rental.date} Book: #{rental.book.title} by #{rental.book.author}" "\n"
+    @rentals.each do |rental|
+      if rental.person.id.equal?(person_id)
+        puts "Person with id: #{person_id} has the following: "
+        puts "Date: #{rental.date}, Book: #{rental.book.title} by #{rental.book.author}" "\n"
+      else
+        puts 'You currently have no rented books!'
+      end
+      puts
     end
   end
 
