@@ -9,6 +9,7 @@ class App
   def initialize
     @books = []
     @people = []
+    @rentals = []
   end
 
   def list_all_books
@@ -80,7 +81,18 @@ class App
   end
 
   def create_a_rental
-    puts 'rent a book'
+    puts 'Please select a book form the available list: '
+    @books.each_with_index { |book, index| puts "Index: #{index}) Title: #{book.title}, Author: #{book.author}" }
+    book_index = gets.chomp.to_i
+    puts 'Please select a person from the list: '
+    @people.each_with_index { |person, index| puts "Index: #{index}) Name: #{person.name} Age: #{person.age}" }
+    person_index = gets.chomp.to_i
+    print 'Date: '
+    date = gets.chomp
+    rental = Rental.new(date, @books[book_index], @people[person_index])
+    @rentals << rental
+    puts 'Successfully rented a book.'
+    puts
   end
 
   def list_all_rentals
