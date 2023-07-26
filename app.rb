@@ -35,7 +35,7 @@ class App
     when 0
       exit!
     else
-      puts 'Invalid entry try again!'
+      puts "Invalid entry try again!' \n"
     end
   end
 
@@ -50,7 +50,7 @@ class App
     permission = permission_input == 'y'
     student = Student.new(age, name, permission)
     @people << student
-    puts 'Student successfully created!'
+    puts "Student successfully created!' \n"
     puts
   end
 
@@ -64,8 +64,7 @@ class App
     specialization = gets.chomp.capitalize
     teacher = Teacher.new(age, name, specialization)
     @people << teacher
-    puts 'Teacher successfully created!'
-    puts
+    puts "Teacher successfully created!' \n"
   end
 
   def create_a_book
@@ -76,27 +75,36 @@ class App
     author = gets.chomp.capitalize
     book = Book.new(title, author)
     @books << book
-    puts 'Successfully created a book!'
-    puts
+    puts "Successfully created a book!' \n"
   end
 
   def create_a_rental
-    puts 'Please select a book form the available list: '
-    @books.each_with_index { |book, index| puts "Index: #{index}) Title: #{book.title}, Author: #{book.author}" }
+    puts "Please select a book by it's index: "
+    @books.each_with_index { |book, index| puts "Index: #{index}) Title: #{book.title}, Author: #{book.author}" "\n" }
     book_index = gets.chomp.to_i
-    puts 'Please select a person from the list: '
-    @people.each_with_index { |person, index| puts "Index: #{index}) Name: #{person.name} Age: #{person.age}" }
+    puts "You selected book index: #{book_index}"
+    puts 'Please select a person by the index (not by ID): '
+    @people.each_with_index do |person, index|
+      puts "Index: #{index}) ID: #{person.id}, Name: #{person.name}, Age: #{person.age}" "\n"
+    end
     person_index = gets.chomp.to_i
+    puts "You selected person index: #{person_index}"
     print 'Date: '
     date = gets.chomp
+    puts "You entered date: #{date}"
     rental = Rental.new(date, @books[book_index], @people[person_index])
     @rentals << rental
-    puts 'Successfully rented a book.'
-    puts
+    puts "Successfully rented a book.' \n"
   end
 
   def list_all_rentals
-    puts 'list all books you have in rental'
+    puts 'ID of person: '
+    gets.chomp.to_i
+    puts 'Rentals: '
+    @rentals.select do |rental|
+      rental.person.id
+      puts "Date: #{rental.date} Book: #{rental.book.title} by #{rental.book.author}" "\n"
+    end
   end
 
   def main_menu
