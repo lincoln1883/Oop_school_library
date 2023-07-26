@@ -17,7 +17,7 @@ class App
   def list_all_people
     puts 'There is no one on record, please add a person!' if @people.empty?
     @people.each do |person|
-      puts "Name: #{person.name}, Age: #{person.age}, Permission: #{person.parent_permission}"
+      puts "ID: #{person.id}, Name: #{person.name}, Age: #{person.age}"
     end
   end
 
@@ -46,12 +46,23 @@ class App
     permission_input = gets.chomp.downcase
     permission = permission_input == 'y'
     student = Student.new(age, name, permission)
-    puts 'Student successfully created!'
     @people << student
+    puts 'Student successfully created!'
+    puts
   end
 
   def create_teacher
     puts 'Create a teacher'
+    print 'Please enter a age: '
+    age = gets.chomp.to_i
+    print 'Please enter a name: '
+    name = gets.chomp.capitalize
+    print 'Please enter a specialization: '
+    specialization = gets.chomp.capitalize
+    teacher = Teacher.new(age, name, specialization)
+    @people << teacher
+    puts 'Teacher successfully created!'
+    puts
   end
 
   def create_a_book
