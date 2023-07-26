@@ -7,12 +7,13 @@ require_relative 'classroom'
 
 class App
   def initialize
-    @book = []
+    @books = []
     @people = []
   end
 
   def list_all_books
-    puts 'list all books'
+    puts 'The list is empty, please create a book!' if @books.empty?
+    @books.each { |ele| puts "Title: #{ele.title} Author: #{ele.author}" }
   end
 
   def list_all_people
@@ -73,7 +74,7 @@ class App
     print 'Author: '
     author = gets.chomp.capitalize
     book = Book.new(title, author)
-    @book << book
+    @books << book
     puts 'Successfully created a book!'
     puts
   end
