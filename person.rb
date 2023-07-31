@@ -25,7 +25,7 @@ class Person < Nameable
   end
 
   def correct_name
-    name
+    @name
   end
 
   def rent_a_book(date, person)
