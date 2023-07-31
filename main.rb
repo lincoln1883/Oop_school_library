@@ -40,6 +40,7 @@ def menu
 end
 
 def main
-  menu
+  menu = App.new
+  menu.send(:menu)
 end
 main
