@@ -39,6 +39,7 @@ def menu
   puts ' Welcome to School Library App! '.center(50, '#'), "\n"
   loop do
     main_menu
+    print 'Choice: '
     choice = gets.chomp.to_i
     user_choice(choice) || 7
   end
