@@ -84,77 +84,37 @@ class App
   end
 
   def create_a_rental
-    puts "Please select a book by it's index: "
+    puts " Please select a book by it's index: ".center(50, '-')
     @books.each_with_index { |book, index| puts "Index: #{index}) Title: #{book.title}, Author: #{book.author}" "\n" }
+    print 'Index: '
     book_index = gets.chomp.to_i
-    puts "You selected book index: #{book_index}"
-    puts 'Please select a person by the index (not by ID): '
+    puts " You selected book index: #{book_index} ".center(50, '-')
+    puts 'Please select a person by the index (not by ID): '.center(50, '-')
     @people.each_with_index do |person, index|
       puts "Index: #{index}) ID: #{person.id}, Name: #{person.name}, Age: #{person.age}" "\n"
     end
+    print 'Index: '
     person_index = gets.chomp.to_i
-    puts "You selected person index: #{person_index}"
-    puts 'Please enter a date: '
-    print 'Date: '
-    date = gets.chomp
-    puts "You entered date: #{date}"
-    rental = Rental.new(date, @books[book_index], @people[person_index])
+    puts "You selected person index: #{person_index}" "\n"
+    rental = Rental.new(@books[book_index], @people[person_index])
     @rentals << rental
-    puts 'Successfully rented a book.'
+    puts ' Successfully rented a book.'.center(50, '-')
     puts
   end
 
   def list_all_rentals
-    puts 'Enter the person ID: '
+    puts ' Enter the person ID: '.center(50, '-')
+    print 'ID: '
     person_id = gets.chomp.to_i
-    puts 'Rentals: '
+    puts ' Rentals: '.center(50, '-')
     @rentals.each do |rental|
       if rental.person.id.equal?(person_id)
-        puts "Person with id: #{person_id} has the following: "
-        puts "Date: #{rental.date}, Book: #{rental.book.title} by #{rental.book.author}" "\n"
+        puts " Person with id: #{person_id} has rented: ".center(50, '-')
+        puts "Book: Title #{rental.book.title} by Author #{rental.book.author}, Rented date: #{rental.date} "
       else
-        puts 'You currently have no rented books!'
+        puts ' You currently have no rented books! '.center(50, '-')
       end
       puts
-    end
-  end
-
-  def main_menu
-    puts 'Please choose an option by entering a number: '
-    puts '1 - List all books'
-    puts '2 - List all people'
-    puts '3 - Create a book'
-    puts '4 - Create a person'
-    puts '5 - Create a rental'
-    puts '6 - List all rental for a given person id'
-    puts '7 - exit'
-  end
-
-  def user_choice(choice)
-    case choice
-    when 1
-      list_all_books
-    when 2
-      list_all_people
-    when 3
-      create_a_book
-    when 4
-      create_a_person
-    when 5
-      create_a_rental
-    when 6
-      list_all_rentals
-    else puts 'Exiting the program...'
-         exit
-    end
-  end
-
-  def menu
-    puts ' Welcome to School Library App! '.center(50, '#'), "\n"
-    loop do
-      main_menu
-      choice = gets.chomp.to_i
-      user_choice(choice) || 7
     end
   end
 end
