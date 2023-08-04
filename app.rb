@@ -4,18 +4,18 @@ require_relative 'student'
 require_relative 'teacher'
 require_relative 'rental'
 require_relative 'classroom'
+require_relative 'file_load'
 
 class App
   def initialize
-    @books = []
+    @books = load_books
     @people = []
     @rentals = []
   end
 
   def list_all_books
-    puts 'The list is empty, please create a book!' if @books.empty?
-    @books.each { |ele| puts "Title: #{ele.title}, Author: #{ele.author}" }
-    puts
+    puts 'The list is empty, please create a book!' if @books.nil?
+    @books.each { |ele| puts "Title: #{ele['title']}, Author: #{ele['author']}" }
   end
 
   def list_all_people
