@@ -44,6 +44,7 @@ def menu
     choice = gets.chomp.to_i
     user_choice(choice) || 7
     save_book
+    save_person
   end
 end
 main
