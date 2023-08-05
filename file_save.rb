@@ -3,6 +3,7 @@ require_relative 'book'
 require_relative 'person'
 require_relative 'student'
 require_relative 'teacher'
+require_relative 'rental'
 
 def save_book
   books_arr = []
@@ -30,4 +31,23 @@ def save_person
   end
 
   File.write('people.json', person_arr.to_json) if @people.any?
+end
+
+def save_rental
+  rental_data = @rentals.map do |rent|
+    {
+      date: rent.date,
+      person: {
+        id: rent.person.id,
+        age: rent.person.age,
+        name: rent.person.name,
+        parent_permission: rent.person.can_use_services?
+      },
+      book: {
+        title: rent.book.title,
+        author: rent.book.author
+      }
+    }
+  end
+  File.write('rental.json', rental_data.to_json)
 end
