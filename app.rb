@@ -9,37 +9,25 @@ require_relative 'file_load'
 class App
   def initialize
     @books = load_books
-    @people = []
+    @people = load_person
     @rentals = []
   end
 
   def list_all_books
     puts 'The list is empty, please create a book!' if @books.nil?
-    @books.each { |ele| puts "Title: #{ele['title']}, Author: #{ele['author']}" }
+    @books.each { |ele| puts "Title: #{ele.title}, Author: #{ele.author}" }
   end
 
   def list_all_people
-    puts 'The list is empty, please add a person!' if @people.empty?
-    @people.each do |person|
-      puts "ID: #{person.id}, Name: #{person.name}, Age: #{person.age}"
+    puts 'The list is empty, please add a person!' if @people.nil?
+    @people.each_with_index do |person, index|
+      if person.instance_of?(Student)
+        puts "Index: #{index}) ,Id: #{person.id}, Age: #{person.age}, Name: #{person.name} Classroom: #{person.classroom} Permission: #{person.parent_permission}"
+      elsif person.instance_of?(Teacher)
+        puts "Index: #{index}) ,Id: #{person.id}, Age: #{person.age}, Name: #{person.name} Specialization: #{person.specialization}"
+      end
     end
     puts
-  end
-
-  def create_a_person
-    puts 'To create a Student press (1) to create a Teacher press (2) otherwise press (0)'
-    choice = gets.chomp.to_i
-    case choice
-    when 1
-      create_student
-    when 2
-      create_teacher
-    when 0
-      exit!
-    else
-      puts 'Invalid entry try again!'
-      puts
-    end
   end
 
   def create_student
@@ -48,10 +36,12 @@ class App
     age = gets.chomp.to_i
     print 'Please enter a name: '
     name = gets.chomp.capitalize
+    print 'Please enter a classroom: '
+    classroom = gets.chomp.capitalize
     print 'Granted permission? [Y/N]: '
     permission_input = gets.chomp.downcase
     permission = permission_input == 'y'
-    student = Student.new(age, name, permission)
+    student = Student.new(age, name, classroom, permission)
     @people << student
     puts 'Student successfully created!'
     puts
@@ -69,6 +59,20 @@ class App
     @people << teacher
     puts 'Teacher successfully created!'
     puts
+  end
+
+  def create_a_person
+    puts 'To create a Student press (1) to create a Teacher press (2) otherwise press (0)'
+    choice = gets.chomp.to_i
+    case choice
+    when 1 then create_student
+    when 2 then create_teacher
+    when 0
+      exit!
+    else
+      puts 'Invalid entry try again!'
+      puts
+    end
   end
 
   def create_a_book
