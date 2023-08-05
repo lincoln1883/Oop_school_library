@@ -45,6 +45,7 @@ def menu
     user_choice(choice) || 7
     save_book
     save_person
+    save_rental
   end
 end
 main
