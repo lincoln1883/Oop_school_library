@@ -41,7 +41,6 @@ def save_rental
         id: rent.person.id,
         age: rent.person.age,
         name: rent.person.name,
-        parent_permission: rent.person.can_use_services?
       },
       book: {
         title: rent.book.title,
@@ -49,5 +48,5 @@ def save_rental
       }
     }
   end
-  File.write('rental.json', rental_data.to_json)
+  File.write('rental.json', rental_data.to_json) if @rentals.any?
 end
