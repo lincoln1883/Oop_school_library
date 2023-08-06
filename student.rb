@@ -3,9 +3,8 @@ require_relative 'classroom'
 class Student < Person
   attr_accessor :classroom
 
-  def initialize(age, name, classroom, parent_permission)
-    super(age, name, parent_permission)
-    @id = id
+  def initialize(id, age, name, classroom, parent_permission)
+    super(id, age, name: name, parent_permission: parent_permission)
     @classroom = classroom
   end
 
@@ -16,9 +15,5 @@ class Student < Person
   def add_to_classroom(classroom)
     @classroom = classroom
     classroom.students << self unless classroom.students.include?(self)
-  end
-
-  def parent_permission
-    can_use_services?
   end
 end
