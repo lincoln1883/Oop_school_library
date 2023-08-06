@@ -19,28 +19,24 @@ def save_person
       age: person.age,
       name: person.name
     }
-
     if person.is_a?(Teacher)
       person_data[:specialization] = person.specialization
     elsif person.is_a?(Student)
-      person_data[:parent_permission] = person.parent_permission
       person_data[:classroom] = person.classroom
     end
-
     person_data
   end
-
   File.write('people.json', person_arr.to_json) if @people.any?
 end
 
 def save_rental
   rental_data = @rentals.map do |rent|
     {
-      date: rent.date,
+      date: rent.date.to_s,
       person: {
         id: rent.person.id,
         age: rent.person.age,
-        name: rent.person.name,
+        name: rent.person.name
       },
       book: {
         title: rent.book.title,
