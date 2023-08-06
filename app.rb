@@ -10,7 +10,7 @@ class App
   def initialize
     @books = load_books
     @people = load_person
-    @rentals = []
+    @rentals = load_rentals
   end
 
   def list_all_books
@@ -22,9 +22,11 @@ class App
     puts 'The list is empty, please add a person!' if @people.nil?
     @people.each_with_index do |person, index|
       if person.instance_of?(Student)
-        puts "Index: #{index}) ,Id: #{person.id}, Age: #{person.age}, Name: #{person.name} Classroom: #{person.classroom} Permission: #{person.parent_permission}"
+        puts "Index: #{index}) ,Id: #{person.id}, Age: #{person.age}, Name: #{person.name},
+         Classroom: #{person.classroom}"
       elsif person.instance_of?(Teacher)
-        puts "Index: #{index}) ,Id: #{person.id}, Age: #{person.age}, Name: #{person.name} Specialization: #{person.specialization}"
+        puts "Index: #{index}) ,Id: #{person.id}, Age: #{person.age}, Name: #{person.name},
+         Specialization: #{person.specialization}"
       end
     end
     puts
@@ -41,7 +43,7 @@ class App
     print 'Granted permission? [Y/N]: '
     permission_input = gets.chomp.downcase
     permission = permission_input == 'y'
-    student = Student.new(age, name, classroom, permission)
+    student = Student.new(id, age, name, classroom, permission)
     @people << student
     puts 'Student successfully created!'
     puts
@@ -55,7 +57,7 @@ class App
     name = gets.chomp.capitalize
     print 'Please enter a specialization: '
     specialization = gets.chomp.capitalize
-    teacher = Teacher.new(age, name, specialization)
+    teacher = Teacher.new(id, age, name, specialization)
     @people << teacher
     puts 'Teacher successfully created!'
     puts
@@ -100,7 +102,8 @@ class App
     print 'Index: '
     person_index = gets.chomp.to_i
     puts "You selected person index: #{person_index}" "\n"
-    rental = Rental.new(@books[book_index], @people[person_index])
+    date = Time.now
+    rental = Rental.new(date, @books[book_index], @people[person_index])
     @rentals << rental
     puts ' Successfully rented a book.'.center(50, '-')
     puts
@@ -108,17 +111,17 @@ class App
 
   def list_all_rentals
     puts ' Enter the person ID: '.center(50, '-')
+    list_all_people
     print 'ID: '
     person_id = gets.chomp.to_i
-    puts ' Rentals: '.center(50, '-')
-    @rentals.each do |rental|
-      if rental.person.id.equal?(person_id)
-        puts " Person with id: #{person_id} has rented: ".center(50, '-')
-        puts "Book: Title #{rental.book.title} by Author #{rental.book.author}, Rented date: #{rental.date} "
-      else
-        puts ' You currently have no rented books! '.center(50, '-')
+    rentals_for_person = @rentals.select { |rental| rental.person.id == person_id }
+    if rentals_for_person.empty?
+      puts "No rentals found for the specified person ID. #{person_id}"
+    else
+      puts 'Rentals:'.center(50, '-')
+      rentals_for_person.each do |rental|
+        puts "Book: #{rental.book.title} by #{rental.book.author}, Rented date: #{rental.date}"
       end
-      puts
     end
   end
 end
