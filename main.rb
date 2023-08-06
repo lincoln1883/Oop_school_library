@@ -1,4 +1,5 @@
 require_relative 'app'
+require_relative 'file_save'
 
 def main
   app = App.new
@@ -42,6 +43,9 @@ def menu
     print 'Choice: '
     choice = gets.chomp.to_i
     user_choice(choice) || 7
+    save_book
+    save_person
+    save_rental
   end
 end
 main
