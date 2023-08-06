@@ -52,6 +52,3 @@ def load_rentals
     Rental.new(date, book, person)
   end
 end
-
-
-
