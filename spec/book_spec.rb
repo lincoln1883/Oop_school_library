@@ -1,6 +1,6 @@
 require_relative '../book'
 
-describe Book do
+RSpec.describe Book do
   describe 'initialize the book' do
     it 'creates a new book object' do
       book = Book.new('sample book', 'jim brown')
