@@ -4,12 +4,12 @@ require_relative '../book'
 require_relative '../person'
 
 RSpec.describe Rental do
-  let(:book) { Book.new('Title','Author') }
-  let(:person) { Person.new('John Doe',25)}
+  let(:book) { Book.new('Title', 'Author') }
+  let(:person) { Person.new('John Doe', 25) }
   let(:date) { Time.new(2023, 8, 3) }
 
   describe '#initialize' do
-  it 'creates a new rental with valid attributes' do
+    it 'creates a new rental with valid attributes' do
       date = Time.new(2023, 8, 3)
       rental = Rental.new(date, book, person)
       expect(rental.date).to eq(date)
